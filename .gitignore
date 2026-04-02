@@ -1,0 +1,27 @@
+.DS_Store
+Thumbs.db
+.idea
+.vscode
+*.log
+
+# Backend (Laravel)
+backend/vendor/
+backend/node_modules/
+backend/.env
+backend/.env.backup
+backend/.phpunit.result.cache
+backend/phpunit.result.cache
+backend/public/hot
+backend/public/storage
+backend/storage/*.key
+backend/bootstrap/cache/packages.php
+backend/bootstrap/cache/services.php
+backend/database/database.sqlite
+backend/database/database.sqlite-journal
+
+# Frontend (Vite + React)
+frontend/node_modules/
+frontend/dist
+frontend/.env
+frontend/.env.local
+frontend/.env.*.local
