@@ -3,7 +3,10 @@
 declare(strict_types=1);
 
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\Cart\CartController;
+use App\Http\Controllers\Api\Cart\CartItemController;
 use App\Http\Controllers\Api\Catalog\ProductController as CatalogProductController;
+use App\Http\Controllers\Api\CheckoutController;
 use App\Http\Controllers\Api\Supplier\ProductController;
 use Illuminate\Support\Facades\Route;
 
@@ -26,5 +29,13 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::prefix('supplier')->group(function () {
         Route::apiResource('products', ProductController::class);
+    });
+
+    Route::middleware('customer')->group(function () {
+        Route::get('/cart', [CartController::class, 'index']);
+        Route::post('/cart/items', [CartItemController::class, 'store']);
+        Route::patch('/cart/items/{cartItem}', [CartItemController::class, 'update']);
+        Route::delete('/cart/items/{cartItem}', [CartItemController::class, 'destroy']);
+        Route::post('/checkout', [CheckoutController::class, 'store']);
     });
 });

@@ -7,6 +7,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Support\Facades\Auth;
 
 #[Fillable(['user_id', 'product_id', 'quantity'])]
 class CartItem extends Model
@@ -26,5 +27,15 @@ class CartItem extends Model
     public function product(): BelongsTo
     {
         return $this->belongsTo(Product::class);
+    }
+
+    public function resolveRouteBinding($value, $field = null)
+    {
+        $field ??= $this->getRouteKeyName();
+
+        return static::query()
+            ->where($field, $value)
+            ->where('user_id', Auth::id())
+            ->firstOrFail();
     }
 }
