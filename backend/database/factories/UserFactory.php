@@ -44,4 +44,11 @@ class UserFactory extends Factory
             'email_verified_at' => null,
         ]);
     }
+
+    public function supplier(): static
+    {
+        return $this->state(fn (array $attributes) => [
+            'role' => UserRole::Supplier,
+        ]);
+    }
 }
