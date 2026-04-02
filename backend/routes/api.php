@@ -7,7 +7,9 @@ use App\Http\Controllers\Api\Cart\CartController;
 use App\Http\Controllers\Api\Cart\CartItemController;
 use App\Http\Controllers\Api\Catalog\ProductController as CatalogProductController;
 use App\Http\Controllers\Api\CheckoutController;
+use App\Http\Controllers\Api\OrderController;
 use App\Http\Controllers\Api\Supplier\ProductController;
+use App\Http\Controllers\Api\Supplier\SalesController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/health', function () {
@@ -27,7 +29,8 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/logout', [AuthController::class, 'logout']);
     Route::get('/user', [AuthController::class, 'user']);
 
-    Route::prefix('supplier')->group(function () {
+    Route::middleware('supplier')->prefix('supplier')->group(function () {
+        Route::get('sales', [SalesController::class, 'index']);
         Route::apiResource('products', ProductController::class);
     });
 
@@ -37,5 +40,7 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::patch('/cart/items/{cartItem}', [CartItemController::class, 'update']);
         Route::delete('/cart/items/{cartItem}', [CartItemController::class, 'destroy']);
         Route::post('/checkout', [CheckoutController::class, 'store']);
+        Route::get('/orders', [OrderController::class, 'index']);
+        Route::get('/orders/{order}', [OrderController::class, 'show']);
     });
 });
