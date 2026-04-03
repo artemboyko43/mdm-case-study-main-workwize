@@ -10,8 +10,8 @@ import LoginPage from './pages/LoginPage'
 import OrdersPlaceholder from './pages/OrdersPlaceholder'
 import ProductsPlaceholder from './pages/ProductsPlaceholder'
 import RegisterPage from './pages/RegisterPage'
-import SupplierProductsPlaceholder from './pages/supplier/SupplierProductsPlaceholder'
-import SupplierSalesPlaceholder from './pages/supplier/SupplierSalesPlaceholder'
+import SupplierProductsPage from './pages/supplier/SupplierProductsPage'
+import SupplierSalesPage from './pages/supplier/SupplierSalesPage'
 import { appTheme } from './theme'
 
 function App() {
@@ -45,7 +45,7 @@ function App() {
                 path="/supplier/products"
                 element={
                   <ProtectedRoute roles={['supplier']}>
-                    <SupplierProductsPlaceholder />
+                    <SupplierProductsPage />
                   </ProtectedRoute>
                 }
               />
@@ -53,7 +53,7 @@ function App() {
                 path="/supplier/sales"
                 element={
                   <ProtectedRoute roles={['supplier']}>
-                    <SupplierSalesPlaceholder />
+                    <SupplierSalesPage />
                   </ProtectedRoute>
                 }
               />

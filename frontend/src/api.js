@@ -31,6 +31,26 @@ export async function apiFetch(path, options = {}) {
   return fetch(`${getApiBase()}${path}`, { ...options, headers })
 }
 
+export async function apiJson(path, options = {}) {
+  const res = await apiFetch(path, options)
+  const text = await res.text()
+  let data = {}
+  if (text) {
+    try {
+      data = JSON.parse(text)
+    } catch {
+      data = {}
+    }
+  }
+  if (!res.ok) {
+    const err = new Error(data.message || `Request failed (${res.status})`)
+    err.status = res.status
+    err.payload = data
+    throw err
+  }
+  return data
+}
+
 export function normalizeUser(payload) {
   if (!payload || typeof payload !== 'object') {
     return null
