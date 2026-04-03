@@ -10,7 +10,7 @@ services:
     volumes:
       - mysql_data:/var/lib/mysql
     ports:
-      - "3306:3306"
+      - "3307:3306"
     healthcheck:
       test: ["CMD", "mysqladmin", "ping", "-h", "127.0.0.1", "-uroot", "-proot"]
       interval: 3s
@@ -58,6 +58,7 @@ services:
       - "5173:5173"
     environment:
       VITE_API_URL: http://localhost:8000
+      CHOKIDAR_USEPOLLING: "true"
     depends_on:
       backend:
         condition: service_healthy

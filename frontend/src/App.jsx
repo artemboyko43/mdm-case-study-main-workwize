@@ -1,55 +1,79 @@
-import { useEffect, useState } from 'react'
+import { ConfigProvider } from 'antd'
+import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
+import { AuthProvider } from './auth/AuthContext'
+import Layout from './components/Layout'
+import ProtectedRoute from './components/ProtectedRoute'
 import './App.css'
-
-const apiBase = import.meta.env.VITE_API_URL ?? 'http://127.0.0.1:8000'
+import CartPage from './pages/CartPage'
+import HomePage from './pages/HomePage'
+import LoginPage from './pages/LoginPage'
+import OrderDetailPage from './pages/OrderDetailPage'
+import OrdersPage from './pages/OrdersPage'
+import ProductDetailPage from './pages/ProductDetailPage'
+import ProductsListPage from './pages/ProductsListPage'
+import RegisterPage from './pages/RegisterPage'
+import SupplierProductsPage from './pages/supplier/SupplierProductsPage'
+import SupplierSalesPage from './pages/supplier/SupplierSalesPage'
+import { appTheme } from './theme'
 
 function App() {
-  const [apiStatus, setApiStatus] = useState('checking…')
-  const [apiError, setApiError] = useState(null)
-
-  useEffect(() => {
-    const url = `${apiBase.replace(/\/$/, '')}/api/health`
-    fetch(url)
-      .then((res) => {
-        if (!res.ok) {
-          throw new Error(`HTTP ${res.status}`)
-        }
-        return res.json()
-      })
-      .then((data) => {
-        setApiStatus(data.status === 'ok' ? 'connected' : JSON.stringify(data))
-        setApiError(null)
-      })
-      .catch((err) => {
-        setApiStatus('unreachable')
-        setApiError(err.message)
-      })
-  }, [])
-
   return (
-    <div className="app">
-      <header className="top">
-        <h1>Multi-supplier shop</h1>
-        <p className="lede">React (Vite) + Laravel API scaffold</p>
-      </header>
-      <main className="panel">
-        <h2>API</h2>
-        <p>
-          <span className={`pill pill-${apiStatus === 'connected' ? 'ok' : 'warn'}`}>
-            {apiStatus}
-          </span>
-        </p>
-        <p className="meta">
-          <code>{apiBase}/api/health</code>
-        </p>
-        {apiError ? (
-          <p className="error" role="alert">
-            {apiError}. Start the backend with{' '}
-            <code>cd backend; php artisan serve</code>.
-          </p>
-        ) : null}
-      </main>
-    </div>
+    <ConfigProvider theme={appTheme}>
+      <AuthProvider>
+        <BrowserRouter>
+          <Routes>
+            <Route element={<Layout />}>
+              <Route path="/" element={<HomePage />} />
+              <Route path="/products" element={<ProductsListPage />} />
+              <Route path="/products/:productId" element={<ProductDetailPage />} />
+              <Route path="/login" element={<LoginPage />} />
+              <Route path="/register" element={<RegisterPage />} />
+              <Route
+                path="/cart"
+                element={
+                  <ProtectedRoute roles={['customer']}>
+                    <CartPage />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/orders"
+                element={
+                  <ProtectedRoute roles={['customer']}>
+                    <OrdersPage />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/orders/:orderId"
+                element={
+                  <ProtectedRoute roles={['customer']}>
+                    <OrderDetailPage />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/supplier/products"
+                element={
+                  <ProtectedRoute roles={['supplier']}>
+                    <SupplierProductsPage />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/supplier/sales"
+                element={
+                  <ProtectedRoute roles={['supplier']}>
+                    <SupplierSalesPage />
+                  </ProtectedRoute>
+                }
+              />
+              <Route path="*" element={<Navigate to="/" replace />} />
+            </Route>
+          </Routes>
+        </BrowserRouter>
+      </AuthProvider>
+    </ConfigProvider>
   )
 }
 
