@@ -1,88 +1,23 @@
-:root {
-  font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, sans-serif;
-  line-height: 1.5;
-  color: #1a1a1a;
-  background: #f4f2ef;
+#root {
+  min-height: 100vh;
 }
 
-body {
-  margin: 0;
+.register-role-segmented.ant-segmented {
+  width: 100%;
+  padding: 6px;
 }
 
-.app {
-  max-width: 40rem;
-  margin: 0 auto;
-  padding: 2.5rem 1.25rem 4rem;
+.register-role-segmented .ant-segmented-item {
+  flex: 1;
 }
 
-.top h1 {
-  font-size: 1.75rem;
-  font-weight: 650;
-  margin: 0 0 0.35rem;
-  letter-spacing: -0.02em;
-}
-
-.lede {
-  margin: 0;
-  color: #555;
-  font-size: 0.95rem;
-}
-
-.panel {
-  margin-top: 2rem;
-  padding: 1.25rem 1.5rem;
-  background: #fff;
-  border-radius: 14px;
-  box-shadow: 0 8px 28px rgba(20, 18, 16, 0.06);
-  border: 1px solid rgba(0, 0, 0, 0.06);
-}
-
-.panel h2 {
-  margin: 0 0 0.75rem;
-  font-size: 1rem;
-  font-weight: 600;
-  color: #444;
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-}
-
-.meta {
-  font-size: 0.85rem;
-  color: #666;
-  word-break: break-all;
-}
-
-.meta code {
-  font-size: 0.8rem;
-}
-
-.pill {
-  display: inline-block;
-  padding: 0.2rem 0.65rem;
-  border-radius: 999px;
-  font-size: 0.85rem;
-  font-weight: 600;
-}
-
-.pill-ok {
-  background: #def7e6;
-  color: #146c2e;
-}
-
-.pill-warn {
-  background: #fff4db;
-  color: #8a5a00;
-}
-
-.error {
-  margin-top: 1rem;
-  font-size: 0.9rem;
-  color: #9a1c1c;
-}
-
-.error code {
-  font-size: 0.82rem;
-  background: #f8e8e8;
-  padding: 0.1rem 0.35rem;
-  border-radius: 4px;
+.register-role-segmented .ant-segmented-item-label {
+  min-height: 108px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 10px;
+  line-height: 1.35;
+  text-align: center;
+  white-space: normal;
 }
