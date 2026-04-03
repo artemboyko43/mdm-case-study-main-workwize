@@ -96,6 +96,8 @@ What was intentionally kept small—which APIs and flows are in scope, and sensi
 
 ## Tests (backend)
 
+PHPUnit uses `backend/.env.testing` when `APP_ENV=testing`, so **CI and clones without a `.env` file** still get a valid `APP_KEY` and no missing-file warnings.
+
 ```bash
 cd backend
 composer run test
