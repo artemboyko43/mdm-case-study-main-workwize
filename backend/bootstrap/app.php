@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Middleware\EnsureCustomer;
+use App\Http\Middleware\EnsureSupplier;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
@@ -13,8 +15,8 @@ return Application::configure(basePath: dirname(__DIR__))
     )
     ->withMiddleware(function (Middleware $middleware): void {
         $middleware->alias([
-            'customer' => \App\Http\Middleware\EnsureCustomer::class,
-            'supplier' => \App\Http\Middleware\EnsureSupplier::class,
+            'customer' => EnsureCustomer::class,
+            'supplier' => EnsureSupplier::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {

@@ -2,39 +2,9 @@ import { Breadcrumb, Descriptions, Space, Spin, Table, Typography, message } fro
 import { useCallback, useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import { apiJson } from '../api'
+import { formatDate, formatMoney, lineTotal } from '../formatters'
 
 const { Text, Title } = Typography
-
-function formatMoney(v) {
-  if (v == null || v === '') {
-    return '—'
-  }
-  const n = Number(v)
-  return Number.isFinite(n) ? n.toFixed(2) : String(v)
-}
-
-function formatDate(iso) {
-  if (!iso) {
-    return '—'
-  }
-  const d = new Date(iso)
-  if (Number.isNaN(d.getTime())) {
-    return String(iso)
-  }
-  return d.toLocaleString(undefined, {
-    dateStyle: 'medium',
-    timeStyle: 'short',
-  })
-}
-
-function lineTotal(unit, qty) {
-  const u = Number(unit)
-  const q = Number(qty)
-  if (!Number.isFinite(u) || !Number.isFinite(q)) {
-    return '—'
-  }
-  return (u * q).toFixed(2)
-}
 
 function normalizeItems(items) {
   if (Array.isArray(items)) {

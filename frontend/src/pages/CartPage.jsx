@@ -3,25 +3,9 @@ import { Button, InputNumber, Popconfirm, Space, Table, Typography, message } fr
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { apiFetch, apiJson } from '../api'
+import { formatMoney, lineTotal } from '../formatters'
 
 const { Text, Title } = Typography
-
-function formatMoney(v) {
-  if (v == null || v === '') {
-    return '—'
-  }
-  const n = Number(v)
-  return Number.isFinite(n) ? n.toFixed(2) : String(v)
-}
-
-function lineTotal(unit, qty) {
-  const u = Number(unit)
-  const q = Number(qty)
-  if (!Number.isFinite(u) || !Number.isFinite(q)) {
-    return '—'
-  }
-  return (u * q).toFixed(2)
-}
 
 export default function CartPage() {
   const navigate = useNavigate()

@@ -3,18 +3,11 @@ import { Card, Col, List, Pagination, Row, Space, Typography, message } from 'an
 import { useCallback, useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { apiJson } from '../api'
+import { formatMoney } from '../formatters'
 
 const { Text, Title } = Typography
 
 const DEFAULT_PAGE_SIZE = 12
-
-function formatMoney(v) {
-  if (v == null || v === '') {
-    return '—'
-  }
-  const n = Number(v)
-  return Number.isFinite(n) ? n.toFixed(2) : String(v)
-}
 
 export default function ProductsListPage() {
   const [products, setProducts] = useState([])

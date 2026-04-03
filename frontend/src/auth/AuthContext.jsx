@@ -5,12 +5,11 @@ const AuthContext = createContext(null)
 
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(null)
-  const [ready, setReady] = useState(false)
+  const [ready, setReady] = useState(() => getToken() == null)
 
   useEffect(() => {
     const token = getToken()
     if (!token) {
-      setReady(true)
       return
     }
     let cancelled = false

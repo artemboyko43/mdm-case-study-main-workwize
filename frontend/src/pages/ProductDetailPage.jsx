@@ -4,16 +4,9 @@ import { useCallback, useEffect, useState } from 'react'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 import { useAuth } from '../auth/AuthContext'
 import { apiJson } from '../api'
+import { formatMoney } from '../formatters'
 
 const { Text, Title } = Typography
-
-function formatMoney(v) {
-  if (v == null || v === '') {
-    return '—'
-  }
-  const n = Number(v)
-  return Number.isFinite(n) ? n.toFixed(2) : String(v)
-}
 
 export default function ProductDetailPage() {
   const { productId } = useParams()

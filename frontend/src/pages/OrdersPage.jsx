@@ -3,32 +3,11 @@ import { Button, Space, Table, Typography, message } from 'antd'
 import { useCallback, useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { apiJson } from '../api'
+import { formatDate, formatMoney } from '../formatters'
 
 const { Text, Title } = Typography
 
 const DEFAULT_PAGE_SIZE = 15
-
-function formatMoney(v) {
-  if (v == null || v === '') {
-    return '—'
-  }
-  const n = Number(v)
-  return Number.isFinite(n) ? n.toFixed(2) : String(v)
-}
-
-function formatDate(iso) {
-  if (!iso) {
-    return '—'
-  }
-  const d = new Date(iso)
-  if (Number.isNaN(d.getTime())) {
-    return String(iso)
-  }
-  return d.toLocaleString(undefined, {
-    dateStyle: 'medium',
-    timeStyle: 'short',
-  })
-}
 
 export default function OrdersPage() {
   const [rows, setRows] = useState([])

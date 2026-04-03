@@ -13,6 +13,7 @@ import {
 } from 'antd'
 import { useCallback, useEffect, useState } from 'react'
 import { apiFetch, apiJson } from '../../api'
+import { formatMoney } from '../../formatters'
 
 const { Text, Title } = Typography
 
@@ -146,7 +147,7 @@ export default function SupplierProductsPage() {
       dataIndex: 'price',
       key: 'price',
       width: 110,
-      render: (v) => (v != null ? Number(v).toFixed(2) : '—'),
+      render: (v) => formatMoney(v),
     },
     {
       title: 'Stock',
